@@ -17,8 +17,7 @@
         android:label="BookFragment" >
         <argument
             android:name="book"
-            app:argType="cat.itb.nicereads.Book"
-            app:nullable="true" />
+            app:argType="cat.itb.nicereads.Book" />
     </fragment>
     <argument
         android:name="book"

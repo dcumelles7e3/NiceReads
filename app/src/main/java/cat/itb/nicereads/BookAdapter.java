@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         TextView title;
         TextView author;
         TextView status;
+        RatingBar ratingBar;
 
 
         public BookViewHolder(@NonNull View itemView) {
@@ -49,7 +51,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             title = itemView.findViewById(R.id.title);
             author = itemView.findViewById(R.id.author);
             status = itemView.findViewById(R.id.status);
-
+            ratingBar = itemView.findViewById(R.id.rating);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,7 +66,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             title.setText(book.getTitle());
             author.setText(book.getAuthor());
             status.setText(String.valueOf(book.getStatus()));
-
+            ratingBar.setRating(book.getRating());
         }
     }
 }

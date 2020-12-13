@@ -13,26 +13,31 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.Date;
 
 public class BookFragment extends Fragment {
-    private EditText nameText;
-    //private Spinner moduleSpinner;
-    private Button dateButton;
+    private TextInputEditText nameText;
+    private TextInputEditText authorText;
+    private Spinner spinner;
+    private Button addButton;
+    private RatingBar ratingBar;
 
-    private Book Book;
+    private Book book;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Book = new Book();
+        book = new Book();
     }
 
     @Nullable
@@ -40,24 +45,26 @@ public class BookFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_fragment, container, false);
 
-        nameText = view.findViewById(R.id.name_text);
+        nameText = (TextInputEditText) view.findViewById(R.id.name_text_edit);
+        authorText = (TextInputEditText) view.findViewById(R.id.author_text_edit);
+        ratingBar = (RatingBar) view.findViewById(R.id.rating_bar);
+        spinner = view.findViewById(R.id.spinner);
+        addButton = view.findViewById(R.id.add_button);
 
-        //moduleSpinner = view.findViewById(R.id.spinner);
-        dateButton = view.findViewById(R.id.date_button);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.status, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        if (getArguments() != null) book = getArguments().getParcelable("book");
+        if (book != null) {
+            nameText.setText(book.getTitle());
+            authorText.setText(book.getAuthor());
+            ratingBar.setRating(book.getRating());
 
 
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.modules, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        moduleSpinner.setAdapter(adapter);
-        dateButton.setEnabled(false);
-        dateButton.setText((new Date()).toString());
-
-        if (getArguments() != null) Book = getArguments().getParcelable("Book");
-        if (Book != null){
-            nameText.setText(Book.getTitle());
         }
-
 
         return view;
     }
@@ -66,15 +73,26 @@ public class BookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         nameText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Book.setTitle(nameText.getText().toString());
+                book.setTitle(nameText.getText().toString());
                 return false;
             }
         });
-
+        authorText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                book.setAuthor(authorText.getText().toString());
+                return false;
+            }
+        });
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                book.setRating(ratingBar.getRating());
+            }
+        });
 
 
     }

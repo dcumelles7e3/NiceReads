@@ -5,20 +5,24 @@ import android.os.Parcelable;
 
 public class Book implements Parcelable {
     private String title, author;
-    private int status, rating;
+    private int status;
+    private float rating;
 
     public Book() {
-        this.title = "Ekisde";
-        this.author = "author";
-        this.status = 1;
-        this.rating = 1;
+    }
+
+    public Book(String title, String author, int status, float rating) {
+        this.title = title;
+        this.author = author;
+        this.status = status;
+        this.rating = rating;
     }
 
     protected Book(Parcel in) {
         title = in.readString();
         author = in.readString();
         status = in.readInt();
-        rating = in.readInt();
+        rating = in.readFloat();
     }
 
     public String getTitle() {
@@ -45,11 +49,11 @@ public class Book implements Parcelable {
         this.status = status;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
