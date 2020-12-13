@@ -27,7 +27,6 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         bookViewModel = new ViewModelProvider(getActivity()).get(BookViewModel.class);
-
     }
 
     @Nullable
@@ -42,10 +41,10 @@ public class BookListFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Book book  = new Book();
-                bookViewModel.addBook(book);
-                NavDirections listToFragmentDirections = BookListFragmentDirections.actionBookListFragmentToBookFragment(book);
-                Navigation.findNavController(v).navigate(listToFragmentDirections);
+//                Book book  = new Book();
+//                bookViewModel.addBook(book);
+//                NavDirections listToFragmentDirections = BookListFragmentDirections.actionBookListFragmentToBookFragment(book);
+                Navigation.findNavController(v).navigate(R.id.action_bookListFragment_to_bookFragment);
             }
         });
         return v;

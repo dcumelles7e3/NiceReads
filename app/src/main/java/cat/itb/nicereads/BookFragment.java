@@ -15,10 +15,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -31,13 +34,14 @@ public class BookFragment extends Fragment {
     private Button addButton;
     private RatingBar ratingBar;
 
+    private BookViewModel bookViewModel;
     private Book book;
+    private boolean replace = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        book = new Book();
+        bookViewModel = new ViewModelProvider(getActivity()).get(BookViewModel.class);
     }
 
     @Nullable
@@ -62,9 +66,13 @@ public class BookFragment extends Fragment {
             nameText.setText(book.getTitle());
             authorText.setText(book.getAuthor());
             ratingBar.setRating(book.getRating());
-
-
+            spinner.setSelection(book.getStatus());
+        } else {
+            replace = false;
+            book = new Book("", "", 0, 0);
         }
+
+        if (replace) addButton.setText("Save");
 
         return view;
     }
@@ -73,24 +81,49 @@ public class BookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        nameText.setOnKeyListener(new View.OnKeyListener() {
+//        nameText.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                return false;
+//            }
+//        });
+//        authorText.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                return false;
+//            }
+//        });
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//
+//            }
+//        });
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                book.setTitle(nameText.getText().toString());
-                return false;
-            }
-        });
-        authorText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                book.setAuthor(authorText.getText().toString());
-                return false;
-            }
-        });
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                book.setRating(ratingBar.getRating());
+            public void onClick(View v) {
+                if (nameText.getText().toString().equals("")||authorText.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "You cannot leave a box empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    book.setTitle(nameText.getText().toString());
+                    book.setAuthor(authorText.getText().toString());
+                    book.setStatus(spinner.getSelectedItemPosition());
+                    book.setRating(ratingBar.getRating());
+                    if (!replace) bookViewModel.addBook(book);
+                    Navigation.findNavController(v).popBackStack();
+                }
             }
         });
 

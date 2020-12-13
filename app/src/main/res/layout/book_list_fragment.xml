@@ -7,16 +7,26 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/book_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
+    <ImageView
+        android:id="@+id/titleimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nicereadstitle"
+        android:paddingHorizontal="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/book_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleimage" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:backgroundTint="@color/colorAccent"
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

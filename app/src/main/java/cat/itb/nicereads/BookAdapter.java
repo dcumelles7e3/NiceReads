@@ -44,7 +44,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         TextView status;
         RatingBar ratingBar;
 
-
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -65,8 +64,23 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         public void bindData(Book book){
             title.setText(book.getTitle());
             author.setText(book.getAuthor());
-            status.setText(String.valueOf(book.getStatus()));
             ratingBar.setRating(book.getRating());
+            String stat;
+            switch (book.getStatus()){
+                case 0:
+                    stat="Want to Read";
+                    break;
+                case 1:
+                    stat="Reading";
+                    break;
+                case 2:
+                    stat="Read";
+                    break;
+                default:
+                    stat="";
+                    break;
+            }
+            status.setText(stat);
         }
     }
 }
