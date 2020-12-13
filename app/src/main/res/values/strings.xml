@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">NiceReads</string>
+    <string name="title">Title</string>
+    <string name="book_name">Book name</string>
+    <string name="author">Author</string>
+    <string name="author_name">Author name</string>
+    <string name="status">Status</string>
+    <string name="rating">Rating</string>
+    <string name="add">ADD</string>
     <string-array name="status">
         <item>Want to Read</item>
         <item>Reading</item>

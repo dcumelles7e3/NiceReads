@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/background">
     <TextView
         android:id="@+id/title_name"
         style="@style/Title"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:paddingVertical="10dp"
-        android:text="Title"
+        android:text="@string/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="Book name"
+            android:hint="@string/book_name"
             android:textAlignment="center"
             android:id="@+id/name_text_edit"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:paddingVertical="10dp"
-        android:text="Author"
+        android:text="@string/author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name_text" />
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/author_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
-            android:hint="Author name"
+            android:hint="@string/author_name"
             android:textAlignment="center"
             android:id="@+id/author_text_edit"
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:layout_marginTop="15dp"
-        android:text="Status"
+        android:text="@string/status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/author_text" />
@@ -95,7 +95,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Rating"
+        android:text="@string/rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -123,9 +123,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_bar"
-        android:numStars="5"
-        android:stepSize="0.1"
-        android:isIndicator="true"
-        android:text="ADD" />
+        android:text="@string/add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
